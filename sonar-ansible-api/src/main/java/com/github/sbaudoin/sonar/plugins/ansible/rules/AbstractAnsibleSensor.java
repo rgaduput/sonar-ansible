@@ -213,6 +213,13 @@ public abstract class AbstractAnsibleSensor implements Sensor {
             // Write error output if any
             errOut.addAll(errOutputReader.getOutput());
 
+            // Linter command status 1 means its detected syntax issues with ansible file
+            // and in this case output remains empty hence needs to add error as output for reporting purpose
+            if(status == 1){
+                LOGGER.debug("REDDY, I am inside IF condition");
+                stdOut.addAll(errOutputReader.getOutput());
+            }
+
             return status;
         } catch (InterruptedException|IOException e) {
             LOGGER.error("Error executing command: {}", e.getMessage());
