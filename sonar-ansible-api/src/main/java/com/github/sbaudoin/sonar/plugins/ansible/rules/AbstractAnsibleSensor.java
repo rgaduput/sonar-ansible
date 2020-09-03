@@ -135,6 +135,7 @@ public abstract class AbstractAnsibleSensor implements Sensor {
             }
 
             LOGGER.debug(output.size() + " issue(s) found");
+            LOGGER.debug(error.size() + " errors(s) found REDDY");
             // Parse output and register all issues: as ansible-lint processes only playbooks but returns issues related to
             // used roles, we need to save all issues first before being able to get role issues and save them
             output.forEach(this::registerIssue);
@@ -203,6 +204,8 @@ public abstract class AbstractAnsibleSensor implements Sensor {
             }
 
             int status = p.waitFor();
+
+            LOGGER.debug("REDDY, status returns is : {}", status);
 
             // Create standard output lines
             stdOut.addAll(stdOutputReader.getOutput());
